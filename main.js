@@ -15,7 +15,7 @@ function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.beginPath();
-    ctx.arc(x, y, 30, 0, Math.PI * 2);
+    ctx.arc(x, y, 50, 0, Math.PI * 2);
     ctx.fillStyle = colors[cindex];
     ctx.fill();
 
@@ -23,7 +23,7 @@ function animate() {
     x += dx;
 
     // Duvara çarpınca yön değiştir ve renk değiştir
-    if (x > canvas.width - 30 || x < 0) {
+    if (x > canvas.width - 50 || x < 0) {
         dx = -dx;
         // Renk indeksini güncelle ve sınırları kontrol et
         cindex = (cindex + 1) % colors.length;
