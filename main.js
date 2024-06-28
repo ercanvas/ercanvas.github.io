@@ -4,7 +4,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let x = 0;
+let x = 50;
 let y = canvas.height / 2;
 let dx = 2;  // Hareket hızını belirten değişken
 let cindex = 0;
@@ -23,7 +23,7 @@ function animate() {
     x += dx;
 
     // Duvara çarpınca yön değiştir ve renk değiştir
-    if (x > canvas.width - 50 || x < 0) {
+    if (x > canvas.width - 50 || x < 50) {
         dx = -dx;
         // Renk indeksini güncelle ve sınırları kontrol et
         cindex = (cindex + 1) % colors.length;
