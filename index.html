@@ -1,13 +1,62 @@
 <!DOCTYPE html>
-<html lang="tr-TR">
+<html lang="en">
 <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Ercanvas</title>
-      <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yumurta Kırma Oyunu</title>
 </head>
 <body>
-      <canvas></canvas>
-      <script src="main.js"></script>
+    <canvas id="canvas"></canvas>
+    <p id="score">0 yumurta kırıldı</p>
+    
+    <script>
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        const cw = canvas.width = 600;
+        const ch = canvas.height = 600;
+        
+        const ew = 1820; // Orijinal resmin genişliği
+        const eh = 980;  // Orijinal resmin yüksekliği
+        const sw = ew / 5;  // Her bir yumurta resminin genişliği (364)
+        const sh = eh / 2;  // Her bir yumurta resminin yüksekliği (490)
+        const dx = 0;    // Çizilecek x koordinatı
+        const dy = 0;    // Çizilecek y koordinatı
+        const dWidth = 600;  // Canvas üzerinde resmin genişliği
+        const dHeight = 600; // Canvas üzerinde resmin yüksekliği
+        
+        const eggi = new Image();
+        eggi.src = '/yumurta.jpg';
+        
+        let clickCount = 0;
+        let currentXIndex = 0;
+        let currentYIndex = 0;
+        let score = 0;
+        const scoreElement = document.getElementById('score');
+        
+        function drawImageAtCurrentIndex() {
+            ctx.clearRect(0, 0, cw, ch); // Önce canvas'ı temizle
+            ctx.drawImage(eggi, currentXIndex * sw, currentYIndex * sh, sw, sh, dx, dy, dWidth, dHeight);
+        }
+        
+        eggi.onload = function() {
+            drawImageAtCurrentIndex();
+        };
+        
+        canvas.addEventListener('click', function() {
+            clickCount++;
+            if (clickCount % 5 === 0) {
+                currentXIndex = (currentXIndex + 1) % 5;
+                if (currentXIndex === 0) {
+                    currentYIndex = (currentYIndex + 1) % 2;
+                    if (currentYIndex === 0) {
+                        score++;
+                        scoreElement.textContent = `${score} yumurta kırıldı`;
+                    }
+                }
+                drawImageAtCurrentIndex();
+            }
+        });
+    </script>
 </body>
 </html>
